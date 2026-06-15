@@ -1,0 +1,63 @@
+---
+description: S5LA and SIF core model definitions — layer names, defensive boundary, diagnostic gating logic
+globs: "**/*.md"
+alwaysApply: false
+---
+
+# Core Model Definitions
+
+## S5LA — Semantic 5-Layer Architecture
+
+| Layer | Name | Processor | Defensive Access |
+| --- | --- | --- | --- |
+| L1 | Semantic Category | Human | ✅ Full |
+| L2 | Semantic Layer | Human | ✅ Full |
+| L3 | Semantic Object | Human | ✅ Full |
+| L4 | Semantic Pattern | AI (implicit) | ⚠️ Indirect only |
+| L5 | Semantic Atom | AI (invisible) | ❌ None currently |
+
+Read bottom-up. L5 is foundation; L1 is top-level classification.
+
+## SIF — Semantic Integrity Framework
+
+```text
+L1 — Semantic Decision    (apex)    judgment criteria & conflict resolution
+         ↑
+L2 — Semantic Structure   (middle)  information weight & priority hierarchy
+         ↑
+L3 — Semantic Architecture (base)   identity, authority, prohibition
+```
+
+**Build order: L3 → L2 → L1. Never top-down.**
+
+## Defensive Boundary
+
+- SIF defends **L1–L3 only**.
+- L4/L5 are explicitly undefended. Do not claim otherwise.
+- Compensating controls for L4/L5: sandboxing, capability restriction, output monitoring.
+
+## Diagnostic Gating Logic
+
+```text
+L3 gate → any ★★★ ❌? STOP. Full L3 redesign required.
+L2 gate → any ★★★ ❌? L2 restructure. L1 findings are provisional.
+L1 gate → any ★★★ ❌? Targeted amendment.
+All ✅  → PASS (within SIF scope — L4/L5 residual risk remains)
+```
+
+## Three Contexts of Semantic Corruption
+
+| Context | Where | Primary Risk |
+| --- | --- | --- |
+| Input | User input, external data | Injection, contamination |
+| Reasoning | Internal LLM interpretation | Priority drift, semantic mixing |
+| Output | Final response, actions | Misaligned or malformed output |
+
+## Human-in-the-Point Criteria
+
+A decision requires human judgment when **any** of these are true:
+
+1. Action is irreversible
+2. Action affects parties outside the system scope
+3. Normative judgment required (not capturable in constraints)
+4. AI confidence cannot be independently verified

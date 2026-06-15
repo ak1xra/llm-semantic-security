@@ -1,0 +1,37 @@
+---
+description: llm-semantic-security project context — directory map, canonical source priority, core model definitions
+alwaysApply: true
+---
+
+# Project Context: llm-semantic-security
+
+## Directory Map
+
+```text
+README.md               # Entry point — always update when framework changes
+foundation/
+  s5la-v1.md            # S5LA v1.0 — FROZEN. Never modify definitions.
+  s5la-overview.md        # S5LA overview (supplementary)
+framework/
+  sif-v3.md             # SIF v3.0 — CANONICAL. Primary reference for all work.
+  ssf-v2.md             # SSF v2.0 — working paper (OWASP/NIST/ISO appendix)
+  ssf-v1.md             # SSF v1.0 — diagnostic checklist source
+.meta/
+  PLAN.md               # Implementation plan and task checklist
+.cursor/rules/
+  context.md            # Quick-reference index for agents
+```
+
+## Canonical Source Priority
+
+Resolve conflicts in this order:
+
+1. `framework/sif-v3.md` — highest authority
+2. `foundation/s5la-v1.md` — foundational definitions (frozen, do not override)
+3. `framework/ssf-v2.md` — OWASP/NIST/ISO comparison only
+4. `framework/ssf-v1.md` — reference only
+
+## Frozen Rule
+
+`foundation/s5la-v1.md` is frozen (v1.0). Layer definitions, processing division, and bridge
+model must not be modified. Only application examples may be added.

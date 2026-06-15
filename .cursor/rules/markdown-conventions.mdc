@@ -1,0 +1,54 @@
+---
+description: Markdown authoring conventions — naming, lint rules, document update protocol
+globs: "**/*.md"
+alwaysApply: false
+---
+
+# Markdown Conventions
+
+## File Naming
+
+- No spaces in filenames — use hyphens: `sif-v3.md`, `s5la-v1.md`
+- Include version in name when document has versioned history
+- `foundation/` — S5LA base layer documents
+- `framework/` — SIF/SSF security framework documents
+
+## Required Lint Compliance
+
+All `.md` files must pass markdownlint with zero errors:
+
+- **MD022** — blank line above and below every heading
+- **MD031** — blank line before and after every fenced code block
+- **MD032** — blank line before and after every list
+- **MD036** — never use `**bold**` as a heading substitute; use `####` instead
+- **MD040** — every fenced code block must have a language tag (`text`, `markdown`, `bash`, etc.)
+- **MD060** — table separator rows must use `| --- |` format (not `|---|`)
+
+## Table Format
+
+```markdown
+| Column A | Column B |
+| --- | --- |
+| value | value |
+```
+
+Never use `|---|` — always `| --- |`.
+
+## Code Block Language Tags
+
+| Content type | Language tag |
+| --- | --- |
+| ASCII diagram / checklist | `text` |
+| Prompt template / system prompt | `markdown` |
+| Shell commands | `bash` |
+| Prose code blocks | `text` |
+
+## Document Update Protocol
+
+When updating any framework document:
+
+1. Check canonical priority — only edit the highest-authority document for the topic
+2. Do not modify `foundation/s5la-v1.md` definitions (frozen)
+3. If adding a new version, increment suffix: `sif-v4.md`
+4. Update `README.md` cross-references when moving or renaming files
+5. Update `.cursor/rules/context.md` directory map accordingly
