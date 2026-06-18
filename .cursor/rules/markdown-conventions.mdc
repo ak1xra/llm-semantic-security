@@ -52,3 +52,6 @@ When updating any framework document:
 3. If adding a new version, increment suffix: `sif-v4.md`
 4. Update `README.md` cross-references when moving or renaming files
 5. Update `.cursor/rules/context.md` directory map accordingly
+---
+
+*© 2026 Akira Hayakawa / 3BPS. All rights reserved.*

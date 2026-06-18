@@ -32,7 +32,7 @@ Primary application domains:
 
 ---
 
-## Layer Roles and Examples
+### Layer Roles and Examples
 
 #### L1 — Semantic Category
 
@@ -195,4 +195,4 @@ The Semantic 5-Layer Architecture treats these as **meaning-structure problems**
 
 ---
 
-*© 2026 AK1RA / 3BPS. All rights reserved.*
+*© 2026 Akira Hayakawa / 3BPS. All rights reserved.*

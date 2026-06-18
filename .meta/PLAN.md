@@ -120,3 +120,6 @@ Verbatim narrative to include:
 - [ ] Write Part III: For AI Enthusiasts
 - [ ] Write Appendix (checklist, design template, glossary, citations)
 - [ ] Final review: consistency, cross-references, no placeholders
+---
+
+*© 2026 Akira Hayakawa / 3BPS. All rights reserved.*

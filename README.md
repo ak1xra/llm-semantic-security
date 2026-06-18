@@ -47,6 +47,8 @@ It emerged from a personal AI operating system — a human-AI collaboration arch
 > separates human decision-making, AI-based cognitive control, contextual memory, and execution
 > support to preserve human authority and prevent unsafe LLM delegation.
 
+→ See [`foundation/3bps-architecture.md`](./foundation/3bps-architecture.md) for the full architecture specification.
+
 During real operations, a pattern kept appearing: the AI received the correct words, but not the
 correct intent. Plans were generated but not followed. Constraints were written but overridden.
 Identity definitions were present but ignored.
@@ -829,3 +831,6 @@ Do not default to action when in doubt.
 
 *S5LA v1.0 status: Frozen. Layer definitions, processing division, and bridge model are fixed.
 Application examples may be added; core definitions are not modified.*
+---
+
+*© 2026 Akira Hayakawa / 3BPS. All rights reserved.*

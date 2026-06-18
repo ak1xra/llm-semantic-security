@@ -2,7 +2,7 @@
 
 ## AI Security Framework (3 Layers × 3 Contexts)
 
-Version: **1.0** Status: **Production** Owner: **AK1RA** Purpose: **Diagnosis and Design of AI System Prompts**
+Version: **1.0** Status: **Production** Owner: **Akira Hayakawa / 3BPS** Purpose: **Diagnosis and Design of AI System Prompts**
 
 ---
 
@@ -260,3 +260,4 @@ Complete
 
 ---
 
+*© 2026 Akira Hayakawa / 3BPS. All rights reserved.*

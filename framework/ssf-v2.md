@@ -345,4 +345,4 @@ SSF provides:
 
 ---
 
-*© 2026 3BPS / Akira Hayakawa. All rights reserved.*sc
+*© 2026 Akira Hayakawa / 3BPS. All rights reserved.*

@@ -183,4 +183,4 @@ The layer definitions, processing division, and bridge model are fixed. Applicat
 
 ---
 
-*© 2026 3BPS / Akira Hayakawa. All rights reserved.*
+*© 2026 Akira Hayakawa / 3BPS. All rights reserved.*
