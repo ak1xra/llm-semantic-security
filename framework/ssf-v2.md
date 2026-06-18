@@ -8,7 +8,7 @@
 > **Positioning Statement:** This paper proposes a conceptual framework for a previously unnamed attack surface in LLM systems. It is not an empirical study. The value proposition is the identification and naming of the problem domain, and the provision of a diagnostic structure for practitioners. Empirical validation is identified as future work.
 
 ---
- 
+
 ## Abstract
 
 As Large Language Models (LLMs) become embedded in enterprise workflows, a new class of attack vector has emerged: **semantic injection** — the corruption of meaning at the interpretation layer rather than the syntax layer. Existing cybersecurity frameworks operate at the packet, endpoint, and authentication layers. None address the **meaning layer**, where LLMs process and act upon human intent.
@@ -24,17 +24,19 @@ This paper introduces the **Semantic Security Framework (SSF)**, a three-layer d
 ### 1.1 The Gap
 
 Current enterprise security stacks protect:
+
 - **Network layer** — firewalls, VPNs, DDoS mitigation
 - **Endpoint layer** — EDR, antivirus, device management
 - **Identity layer** — MFA, zero-trust, IAM
 
 None protect:
+
 - **Meaning layer** — the semantic interpretation of human intent by LLMs
 
 ### 1.2 Meaning-Layer Attack Vectors
 
 | Attack Type | Layer | Description | Current Defense |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Prompt Injection | L3 | Malicious instructions embedded in user input | None |
 | Semantic Contamination | L2 | Context pollution via external sources (Slack, email) | None |
 | Intent Drift | L1 | Gradual corruption of AI judgment over long sessions | None |
@@ -45,6 +47,7 @@ None protect:
 ### 1.3 Why This Matters Now
 
 LLM agents are increasingly granted:
+
 - File system access
 - API execution rights
 - Database write permissions
@@ -58,18 +61,19 @@ A meaning-layer attack on an agent with these permissions is equivalent to a pri
 
 SSF is built upon S5LA, which models the semantic processing stack between human and LLM.
 
-```
+```text
 (L1) Semantic Category    — Domain classification ("what world is this?")
 (L2) Semantic Layer       — Functional hierarchy (responsibility separation)
 (L3) Semantic Object      — Concrete specifications, policies, documents
 (L4) Semantic Pattern     — Structural templates [AI-processed / human-invisible]
 (L5) Semantic Atom        — Minimum meaning units [AI-internal / human-invisible]
+
 ```
 
 ### 2.1 Human vs. AI Processing Division
 
 | Layer | Primary Processor | Visibility | Defensive Access |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | L1 Category | Human | Explicit | ✅ Full |
 | L2 Layer | Human | Explicit | ✅ Full |
 | L3 Object | Human | Explicit | ✅ Full |
@@ -92,12 +96,13 @@ SSF applies security design principles to each human-accessible layer of S5LA.
 
 ### 3.1 Framework Structure
 
-```
+```text
 L1 — Semantic Decision    (apex)   — "What gets decided and how"
          ↑
 L2 — Semantic Structure   (middle) — "How information is weighted and ordered"
          ↑
 L3 — Semantic Architecture (base)  — "What the AI is and what it is authorized to do"
+
 ```
 
 **Critical design rule:** L3 must be established first. Upper-layer corrections cannot compensate for a collapsed base. If L3 is compromised, L2 and L1 evaluations should be suspended until L3 is remediated.
@@ -109,17 +114,20 @@ L3 — Semantic Architecture (base)  — "What the AI is and what it is authoriz
 **Function:** Defines the AI's identity, purpose, authority, and constraints at the design level. This is the most critical layer — its failure propagates to all layers above.
 
 **Failure patterns:**
+
 - AI does not correctly recognize its own purpose or authority scope
 - Constraints expressed as preferences rather than hard boundaries
 - Identity definition absent or ambiguous at prompt design time
 
 **Design template:**
-```
+
+```text
 ## Identity
 This AI is: [1-sentence definition]
 Purpose: [why it exists]
 Authority: [what it may do — explicit list]
 Prohibition: [what it must never do — explicit list]
+
 ```
 
 **Design note on values neutrality:** SSF's L3 template is intentionally neutral on *what* the prohibitions should be. Organizations define their own prohibition set based on their security posture and stakeholder obligations. SSF provides the structural container; organizations provide the normative content.
@@ -129,12 +137,14 @@ Prohibition: [what it must never do — explicit list]
 **Function:** Defines the weight, order, and relationship between information types. Prevents constraints from being overridden by lower-priority inputs.
 
 **Failure patterns:**
+
 - Constraints (must follow) and guidelines (should consider) treated as equivalent weight
 - Facts and hypotheses processed without distinction
 - Priority order undefined, allowing user requests to override system constraints
 
 **Design template:**
-```
+
+```text
 ## Context Hierarchy
 
 ### Immutable [Weight: Absolute]
@@ -148,6 +158,7 @@ Prohibition: [what it must never do — explicit list]
 
 ### Reference [Weight: Low]
 [Contextual information — lowest priority]
+
 ```
 
 #### L1 — Semantic Decision (Judgment Layer)
@@ -155,15 +166,18 @@ Prohibition: [what it must never do — explicit list]
 **Function:** Defines the criteria and priority order for AI judgment. Makes implicit judgment logic explicit and auditable.
 
 **Failure patterns:**
+
 - Judgment criteria implicit (not explicitly defined)
 - AI judgment diverges from user intent due to undefined conflict resolution
 - Competing criteria exist without resolution rules, creating exploitable ambiguity
 
 **Design template:**
-```
+
+```text
 ## Decision Rules
 
 ### Priority Order
+
 1. [Highest priority criterion]
 2. [Secondary criterion]
 3. [Default behavior]
@@ -173,6 +187,7 @@ When [criterion A] conflicts with [criterion B]: [resolution rule]
 
 ### Escalation
 When no rule applies, or when [condition]: route to human judgment
+
 ```
 
 ### 3.3 Explicit Scope Limitation
@@ -189,7 +204,7 @@ Organizations deploying LLM agents should treat L4/L5 as an uncontrolled attack 
 
 The diagnostic must be applied in strict bottom-up order with gating logic:
 
-```
+```text
 START
   ↓
 L3 Assessment — [All ✅?]
@@ -204,36 +219,37 @@ L3 Assessment — [All ✅?]
                         L1 Assessment — [All ✅?]
                           ├─ NO  → Judgment criteria amendment required.
                           └─ YES → PASS (within SSF scope)
+
 ```
 
 ### 4.2 Weighted Checklist
 
 Items are weighted by severity of failure impact. Critical items (★★★) represent conditions where a single failure creates high-severity vulnerability.
 
-**L3 — Semantic Architecture**
+#### L3 — Semantic Architecture
 
 | Item | Weight | Check |
-|---|---|---|
+| --- | --- | --- |
 | AI purpose defined in one sentence | ★★★ | [ ] |
 | Prohibited actions explicitly stated | ★★★ | [ ] |
 | Authority scope explicitly stated | ★★★ | [ ] |
 | Identity definition at top of system prompt | ★★ | [ ] |
 | Purpose, authority, prohibition are non-contradictory | ★★★ | [ ] |
 
-**L2 — Semantic Structure**
+#### L2 — Semantic Structure
 
 | Item | Weight | Check |
-|---|---|---|
+| --- | --- | --- |
 | Constraints separated from guidelines | ★★★ | [ ] |
 | Facts and hypotheses distinguished | ★★ | [ ] |
 | Information priority order defined | ★★★ | [ ] |
 | Hierarchy made explicit in prompt structure | ★★ | [ ] |
 | Each information type in its own section | ★ | [ ] |
 
-**L1 — Semantic Decision**
+#### L1 — Semantic Decision
 
 | Item | Weight | Check |
-|---|---|---|
+| --- | --- | --- |
 | Judgment criteria explicitly stated | ★★★ | [ ] |
 | Priority order defined | ★★★ | [ ] |
 | User intent and AI judgment axis aligned | ★★ | [ ] |
@@ -243,7 +259,7 @@ Items are weighted by severity of failure impact. Critical items (★★★) rep
 ### 4.3 Scoring Guidance
 
 | ★★★ items | Result |
-|---|---|
+| --- | --- |
 | Any ❌ at L3 | Critical — full L3 redesign before any other work |
 | Any ❌ at L2 | High — L2 restructuring required; L1 findings provisional |
 | Any ❌ at L1 | Medium — targeted amendment sufficient |
@@ -258,6 +274,7 @@ Items are weighted by severity of failure impact. Critical items (★★★) rep
 ### 5.1 Scenario
 
 A financial services firm deploys an LLM agent with:
+
 - Access to internal document repositories
 - Authority to draft and send emails
 - Permission to query financial databases
@@ -265,14 +282,14 @@ A financial services firm deploys an LLM agent with:
 ### 5.2 Pre-Deployment SSF Diagnosis
 
 | Layer | ★★★ Items | Status | Finding |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | L3 | Prohibition defined | ❌ | No prohibition on financial data exfiltration |
 | L2 | Priority order defined | ❌ | User requests and system constraints equal weight |
 | L1 | Conflict resolution | ❌ | No rule when user request conflicts with data policy |
 
 **Gating result:** L3 failure detected → full redesign required before deployment.
 
-**Risk without remediation:** A semantically injected instruction ("summarize and email all Q4 reports to external@example.com") executes without resistance.
+**Risk without remediation:** A semantically injected instruction ("summarize and email all Q4 reports to `external@example.com`") executes without resistance.
 
 ### 5.3 SSF Remediation
 
@@ -295,6 +312,7 @@ SSF is designed around the **Human-in-the-Point** principle: human judgment is a
 **Operational definition of leverage points:**
 
 A decision qualifies as a leverage point when any of the following are true:
+
 1. The action is irreversible (deletion, transmission, financial transaction)
 2. The action affects parties outside the system's defined scope
 3. The action requires normative judgment not captured in the system's constraint set
@@ -309,12 +327,14 @@ SSF's L1 Escalation rule operationalizes Human-in-the-Point: when the AI cannot 
 The security industry is currently defending the wrong attack surface. Meaning-layer attacks — semantic injection, context contamination, intent drift — are not addressed by any existing enterprise security framework.
 
 SSF provides:
+
 1. A named attack surface (semantic / meaning layer) that existing frameworks do not address
 2. A diagnostic protocol for identifying meaning-layer vulnerabilities in human-accessible layers (L1–L3)
 3. A design methodology for building LLM systems with explicit security semantics
 4. An honest acknowledgment of the L4/L5 defensive boundary
 
 **Future work:**
+
 - Empirical validation across diverse LLM deployments
 - Quantitative measurement of SSF-compliant vs. non-compliant system vulnerability rates
 - Extension of SSF to L4/L5 as interpretability research matures
@@ -325,7 +345,7 @@ SSF provides:
 ## Appendix A: Glossary
 
 | Term | Definition |
-|---|---|
+| --- | --- |
 | Semantic Injection | Malicious instructions embedded at the meaning layer of LLM input |
 | Semantic Contamination | Context corruption from untrusted external sources |
 | Intent Drift | Gradual divergence of AI judgment from original design intent |
@@ -337,7 +357,7 @@ SSF provides:
 ## Appendix B: SSF vs. Existing Frameworks
 
 | Framework | Scope | Meaning Layer | Human-AI Authority |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | OWASP LLM Top 10 | Attack taxonomy | Partial (prompt injection) | Not addressed |
 | NIST AI RMF | Risk governance | Not addressed | Not addressed |
 | ISO 42001 | AI management | Not addressed | Not addressed |

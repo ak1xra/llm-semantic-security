@@ -35,7 +35,7 @@ The reason "Semantic" runs through every layer:
 
 ## 1. Structure (read bottom-up)
 
-```
+```text
 L1 — Semantic Decision   (apex)
      Criteria for "what gets decided and how"
           ↑
@@ -44,6 +44,7 @@ L2 — Semantic Structure  (middle)
           ↑
 L3 — Semantic Architecture (foundation)
      Design of "what kind of entity this AI is"
+
 ```
 
 If the foundation collapses, all layers collapse.  
@@ -110,42 +111,46 @@ Used for evaluating existing AI systems. Rate each item as **✅ / ❌ / ❓**.
 
 ### L3 — Semantic Architecture Diagnosis
 
-```
+```text
 [ ] Is the AI's purpose clearly defined in one sentence?
 [ ] Is the scope of authority explicitly stated (what it may / may not do)?
 [ ] Are constraints embedded as "design philosophy" at the foundation?
 [ ] Is the existence definition placed at the top of the system prompt?
 [ ] Are the three elements — purpose, authority, and constraints — non-contradictory?
+
 ```
 
 ### L2 — Semantic Structure Diagnosis
 
-```
+```text
 [ ] Are constraints and recommendations clearly separated?
 [ ] Are facts and hypotheses described with distinction?
 [ ] Is the priority order of information defined at the semantic level?
 [ ] Is the structural hierarchy (higher / lower) explicit?
 [ ] Is each information type isolated in its own section?
+
 ```
 
 ### L1 — Semantic Decision Diagnosis
 
-```
+```text
 [ ] Are the judgment criteria explicitly stated?
 [ ] Is the priority order of judgment defined?
 [ ] Are the user intent and the AI's judgment axis aligned?
 [ ] When competing judgment criteria exist, is a resolution rule defined?
 [ ] Are exception cases documented?
+
 ```
 
 ### Overall Assessment
 
-```
+```text
 All ✅              → Design is appropriate
 Any ❌ at L3        → Redesign all layers
 Any ❌ at L2 (L3 ✅) → Structural reorganization required
 Only L1 has ❌      → Addressable by adding judgment criteria
 Many ❓             → Insufficient information — confirm with designer
+
 ```
 
 ---
@@ -156,12 +161,13 @@ Procedure for designing new AI systems. **Always build from L3 upward.**
 
 ### Step 1: Define L3 — Semantic Architecture
 
-```
+```text
 ## Identity (Existence Definition)
 What this AI is: [describe in 1 sentence]
 Purpose: [why it exists]
 Authority: [what it may do]
 Prohibition: [what it must never do]
+
 ```
 
 **Checkpoints:**
@@ -174,20 +180,25 @@ Prohibition: [what it must never do]
 
 ### Step 2: Define L2 — Semantic Structure
 
-```
+```text
 ## Context Hierarchy
 
 ### Immutable (non-negotiable)
+
 - [Absolute constraints and preconditions]
 
 ### Constraints
+
 - [Rules to follow]
 
 ### Guidelines (recommendations)
+
 - [Things to consider]
 
 ### Reference
+
 - [Information that may be used]
+
 ```
 
 **Checkpoints:**
@@ -200,19 +211,23 @@ Prohibition: [what it must never do]
 
 ### Step 3: Define L1 — Semantic Decision
 
-```
+```text
 ## Decision Rules
 
 ### Priority Order
+
 1. [Highest priority]
 2. [Secondary]
 3. [Everything else]
 
 ### Conflict Resolution
+
 - [How to resolve when judgment criteria conflict]
 
 ### Edge Cases
+
 - [Situations where normal rules do not apply]
+
 ```
 
 **Checkpoints:**
@@ -225,7 +240,7 @@ Prohibition: [what it must never do]
 
 ### Design Completion Check
 
-```
+```text
 L3 defined → L2 defined → L1 defined
      ↓              ↓              ↓
 Existence check  Structure check  Judgment check
@@ -233,6 +248,7 @@ Existence check  Structure check  Judgment check
 Cross-layer consistency check (no contradictions?)
      ↓
 Complete
+
 ```
 
 ---
