@@ -17,6 +17,7 @@ In short:
 
 ```text
 3BPS = Human decision authority + AI control layer + AI memory layer + execution layer
+
 ```
 
 ---
@@ -30,6 +31,7 @@ AI may retrieve and reconstruct context.
 AI may support execution.
 
 AI must not become the final decision-maker.
+
 ```
 
 3BPS is designed around the principle of **Human-in-the-Point**.
@@ -52,10 +54,11 @@ Memory Layer
 Execution Layer
 ↓
 Persistent Log
+
 ```
 
 | Component | Role | Authority |
-|---|---|---|
+| --- | --- | --- |
 | Human / AK1RA OS | Final decision, responsibility, approval | Full decision authority |
 | Control Layer / Oni Coach | Cognitive control, risk detection, execution brake | No decision authority |
 | Memory Layer / Claude | Context reconstruction, summarization, semantic memory | No decision authority |
@@ -82,6 +85,7 @@ unsafe delegation
 implicit execution
 ↓
 loss of accountability
+
 ```
 
 3BPS prevents this by separating:
@@ -91,6 +95,7 @@ decision ≠ control
 control ≠ memory
 memory ≠ execution
 execution ≠ approval
+
 ```
 
 ---
@@ -116,7 +121,7 @@ It reduces the risk of:
 3BPS is the **operational architecture** that applies security and alignment principles in real usage.
 
 | Framework | Role |
-|---|---|
+| --- | --- |
 | SIF | Semantic integrity / meaning-layer defense |
 | S5LA | Layered security and alignment structure |
 | SSF | Safety specification / secure system framing |
@@ -130,6 +135,7 @@ Who controls?
 Who remembers?
 Who executes?
 Who records?
+
 ```
 
 ---
