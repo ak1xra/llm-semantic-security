@@ -67,33 +67,54 @@ cybersecurity frameworks do not address.
 
 ## Table of Contents
 
-- [Part I — For Security Professionals](#part-i--for-security-professionals)
-  - [The Gap: What Existing Frameworks Miss](#the-gap-what-existing-frameworks-miss)
-  - [Meaning-Layer Attack Vectors](#meaning-layer-attack-vectors)
-  - [SIF: Three-Layer Defense Architecture](#sif-three-layer-defense-architecture)
-  - [Diagnostic Protocol](#diagnostic-protocol)
-  - [Design Hardening Guide](#design-hardening-guide)
-  - [Case Studies](#case-studies)
-  - [SIF vs. OWASP / NIST / ISO](#sif-vs-owasp--nist--iso)
-- [Part II — For AI Researchers](#part-ii--for-ai-researchers)
-  - [S5LA: The Formal Model](#s5la-the-formal-model)
-  - [Human-in-the-Point Principle](#human-in-the-point-principle)
-  - [Three Contexts of Semantic Corruption](#three-contexts-of-semantic-corruption)
-  - [The Bridge Model](#the-bridge-model)
-  - [Open Problems: L4–L5 Attack Surface](#open-problems-l4l5-attack-surface)
-  - [Research Agenda](#research-agenda)
-- [Part III — For AI Enthusiasts](#part-iii--for-ai-enthusiasts)
-  - [The Plain-Language Problem](#the-plain-language-problem)
-  - [5-Minute Prompt Audit](#5-minute-prompt-audit)
-  - [Before / After: Real Failure Rewritten](#before--after-real-failure-rewritten)
-  - [Human-in-the-Point Without Jargon](#human-in-the-point-without-jargon)
-  - [How to Contribute](#how-to-contribute)
-- [Appendix](#appendix)
-  - [A. Full Diagnostic Checklist](#a-full-diagnostic-checklist)
-  - [B. Full Design Template](#b-full-design-template)
-  - [C. Glossary](#c-glossary)
-  - [D. Related Work](#d-related-work)
-  - [E. License & Author](#e-license--author)
+- [llm-semantic-security](#llm-semantic-security)
+  - [Why This Exists](#why-this-exists)
+  - [Table of Contents](#table-of-contents)
+  - [Part I — For Security Professionals](#part-i--for-security-professionals)
+    - [The Gap: What Existing Frameworks Miss](#the-gap-what-existing-frameworks-miss)
+    - [Meaning-Layer Attack Vectors](#meaning-layer-attack-vectors)
+    - [SIF: Three-Layer Defense Architecture](#sif-three-layer-defense-architecture)
+      - [L3 — Semantic Architecture (Identity Layer)](#l3--semantic-architecture-identity-layer)
+      - [L2 — Semantic Structure (Relationship Layer)](#l2--semantic-structure-relationship-layer)
+      - [L1 — Semantic Decision (Judgment Layer)](#l1--semantic-decision-judgment-layer)
+    - [Diagnostic Protocol](#diagnostic-protocol)
+    - [Design Hardening Guide](#design-hardening-guide)
+      - [Step 1: Define L3 — Identity](#step-1-define-l3--identity)
+      - [Step 2: Define L2 — Context Hierarchy](#step-2-define-l2--context-hierarchy)
+      - [Step 3: Define L1 — Decision Rules](#step-3-define-l1--decision-rules)
+    - [Case Studies](#case-studies)
+      - [Case Study A: Enterprise LLM Agent (Illustrative)](#case-study-a-enterprise-llm-agent-illustrative)
+      - [Case Study B: Notion AI Custom Agent (Observed, January 2026)](#case-study-b-notion-ai-custom-agent-observed-january-2026)
+    - [SIF vs. OWASP / NIST / ISO](#sif-vs-owasp--nist--iso)
+  - [Part II — For AI Researchers](#part-ii--for-ai-researchers)
+    - [S5LA: The Formal Model](#s5la-the-formal-model)
+      - [Layer Definitions](#layer-definitions)
+      - [Human vs. AI Processing Division](#human-vs-ai-processing-division)
+    - [Human-in-the-Point Principle](#human-in-the-point-principle)
+    - [Three Contexts of Semantic Corruption](#three-contexts-of-semantic-corruption)
+    - [The Bridge Model](#the-bridge-model)
+    - [Open Problems: L4–L5 Attack Surface](#open-problems-l4l5-attack-surface)
+    - [Research Agenda](#research-agenda)
+  - [Part III — For AI Enthusiasts](#part-iii--for-ai-enthusiasts)
+    - [The Plain-Language Problem](#the-plain-language-problem)
+    - [5-Minute Prompt Audit](#5-minute-prompt-audit)
+      - [Step 1: Identity check (L3)](#step-1-identity-check-l3)
+      - [Step 2: Weight check (L2)](#step-2-weight-check-l2)
+      - [Step 3: Judgment check (L1)](#step-3-judgment-check-l1)
+    - [Before / After: Real Failure Rewritten](#before--after-real-failure-rewritten)
+      - [Before: the original prompt structure](#before-the-original-prompt-structure)
+      - [After: SIF-structured](#after-sif-structured)
+    - [Human-in-the-Point Without Jargon](#human-in-the-point-without-jargon)
+    - [How to Contribute](#how-to-contribute)
+  - [Appendix](#appendix)
+    - [A. Full Diagnostic Checklist](#a-full-diagnostic-checklist)
+      - [L3 — Semantic Architecture](#l3--semantic-architecture)
+      - [L2 — Semantic Structure](#l2--semantic-structure)
+      - [L1 — Semantic Decision](#l1--semantic-decision)
+    - [B. Full Design Template](#b-full-design-template)
+    - [C. Glossary](#c-glossary)
+    - [D. Related Work](#d-related-work)
+    - [E. License \& Author](#e-license--author)
 
 ---
 
@@ -825,12 +846,11 @@ Do not default to action when in doubt.
 > inverse failure mode: **not AI attacking external systems, but human intent failing to
 > reach AI systems correctly**. These are complementary, not competing, problem domains.
 
-**© 2026 Akira Hayakawa / 3BPS. Released under the [MIT License](LICENSE).**
-
 ---
 
 *S5LA v1.0 status: Frozen. Layer definitions, processing division, and bridge model are fixed.
 Application examples may be added; core definitions are not modified.*
+
 ---
 
 *© 2026 Akira Hayakawa / 3BPS. All rights reserved.*
