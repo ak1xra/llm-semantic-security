@@ -44,7 +44,6 @@ L2 — Semantic Structure  (middle)
           ↑
 L3 — Semantic Architecture (foundation)
      Design of "what kind of entity this AI is"
-
 ```
 
 If the foundation collapses, all layers collapse.  
@@ -117,7 +116,6 @@ Used for evaluating existing AI systems. Rate each item as **✅ / ❌ / ❓**.
 [ ] Are constraints embedded as "design philosophy" at the foundation?
 [ ] Is the existence definition placed at the top of the system prompt?
 [ ] Are the three elements — purpose, authority, and constraints — non-contradictory?
-
 ```
 
 ### L2 — Semantic Structure Diagnosis
@@ -128,7 +126,6 @@ Used for evaluating existing AI systems. Rate each item as **✅ / ❌ / ❓**.
 [ ] Is the priority order of information defined at the semantic level?
 [ ] Is the structural hierarchy (higher / lower) explicit?
 [ ] Is each information type isolated in its own section?
-
 ```
 
 ### L1 — Semantic Decision Diagnosis
@@ -139,7 +136,6 @@ Used for evaluating existing AI systems. Rate each item as **✅ / ❌ / ❓**.
 [ ] Are the user intent and the AI's judgment axis aligned?
 [ ] When competing judgment criteria exist, is a resolution rule defined?
 [ ] Are exception cases documented?
-
 ```
 
 ### Overall Assessment
@@ -150,7 +146,6 @@ Any ❌ at L3        → Redesign all layers
 Any ❌ at L2 (L3 ✅) → Structural reorganization required
 Only L1 has ❌      → Addressable by adding judgment criteria
 Many ❓             → Insufficient information — confirm with designer
-
 ```
 
 ---
@@ -167,7 +162,6 @@ What this AI is: [describe in 1 sentence]
 Purpose: [why it exists]
 Authority: [what it may do]
 Prohibition: [what it must never do]
-
 ```
 
 **Checkpoints:**
@@ -184,21 +178,16 @@ Prohibition: [what it must never do]
 ## Context Hierarchy
 
 ### Immutable (non-negotiable)
-
 - [Absolute constraints and preconditions]
 
 ### Constraints
-
 - [Rules to follow]
 
 ### Guidelines (recommendations)
-
 - [Things to consider]
 
 ### Reference
-
 - [Information that may be used]
-
 ```
 
 **Checkpoints:**
@@ -215,19 +204,15 @@ Prohibition: [what it must never do]
 ## Decision Rules
 
 ### Priority Order
-
 1. [Highest priority]
 2. [Secondary]
 3. [Everything else]
 
 ### Conflict Resolution
-
 - [How to resolve when judgment criteria conflict]
 
 ### Edge Cases
-
 - [Situations where normal rules do not apply]
-
 ```
 
 **Checkpoints:**
@@ -248,7 +233,6 @@ Existence check  Structure check  Judgment check
 Cross-layer consistency check (no contradictions?)
      ↓
 Complete
-
 ```
 
 ---
