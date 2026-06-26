@@ -84,7 +84,7 @@ cybersecurity frameworks do not address.
       - [Step 3: Define L1 — Decision Rules](#step-3-define-l1--decision-rules)
     - [Case Studies](#case-studies)
       - [Case Study A: Enterprise LLM Agent (Illustrative)](#case-study-a-enterprise-llm-agent-illustrative)
-      - [Case Study B: Notion AI Custom Agent (Observed, January 2026)](#case-study-b-notion-ai-custom-agent-observed-january-2026)
+      - [Case Study B: Notion AI (Observed, January 2026)](#case-study-b-notion-ai-custom-agent-observed-january-2026)
     - [SIF vs. OWASP / NIST / ISO](#sif-vs-owasp--nist--iso)
   - [Part II — For AI Researchers](#part-ii--for-ai-researchers)
     - [S5LA: The Formal Model](#s5la-the-formal-model)
@@ -325,7 +325,7 @@ L4/L5 residual risk remains.
 
 ---
 
-#### Case Study B: Notion AI Custom Agent (Observed, January 2026)
+#### Case Study B: Notion AI (Observed, January 2026)
 
 **Observed symptom:** Planning quality: 95/100. Plan adherence: 0/100.
 
