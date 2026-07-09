@@ -2,7 +2,7 @@
 
 **Author:** AK1RA (Akira Hayakawa)  
 **Date:** May 2026  
-**Version:** 2.0 (Revised)  
+**Version:** 2.1 (Revised — Semantic Authorization Drift addendum)  
 **Status:** Working Paper — Conceptual Framework Proposal
 
 > **Positioning Statement:** This paper proposes a conceptual framework for a previously unnamed attack surface in LLM systems. It is not an empirical study. The value proposition is the identification and naming of the problem domain, and the provision of a diagnostic structure for practitioners. Empirical validation is identified as future work.
@@ -41,6 +41,7 @@ None protect:
 | Semantic Contamination | L2 | Context pollution via external sources (Slack, email) | None |
 | Intent Drift | L1 | Gradual corruption of AI judgment over long sessions | None |
 | Role Rewrite | L3 | Overriding AI identity via roleplay or persona injection | None |
+| Semantic Authorization Drift | L2–L3 | Model expands interpretation of permitted actions; proceeds without explicit human approval | None |
 | Pattern Exploitation | L4 | Manipulation of AI's implicit structural processing | **Currently undefendable** |
 | Atom-level Poisoning | L5 | Corruption of minimum meaning units in LLM internals | **Currently undefendable** |
 
@@ -67,7 +68,6 @@ SSF is built upon S5LA, which models the semantic processing stack between human
 (L3) Semantic Object      — Concrete specifications, policies, documents
 (L4) Semantic Pattern     — Structural templates [AI-processed / human-invisible]
 (L5) Semantic Atom        — Minimum meaning units [AI-internal / human-invisible]
-
 ```
 
 ### 2.1 Human vs. AI Processing Division
@@ -102,7 +102,6 @@ L1 — Semantic Decision    (apex)   — "What gets decided and how"
 L2 — Semantic Structure   (middle) — "How information is weighted and ordered"
          ↑
 L3 — Semantic Architecture (base)  — "What the AI is and what it is authorized to do"
-
 ```
 
 **Critical design rule:** L3 must be established first. Upper-layer corrections cannot compensate for a collapsed base. If L3 is compromised, L2 and L1 evaluations should be suspended until L3 is remediated.
@@ -127,7 +126,6 @@ This AI is: [1-sentence definition]
 Purpose: [why it exists]
 Authority: [what it may do — explicit list]
 Prohibition: [what it must never do — explicit list]
-
 ```
 
 **Design note on values neutrality:** SSF's L3 template is intentionally neutral on *what* the prohibitions should be. Organizations define their own prohibition set based on their security posture and stakeholder obligations. SSF provides the structural container; organizations provide the normative content.
@@ -158,7 +156,6 @@ Prohibition: [what it must never do — explicit list]
 
 ### Reference [Weight: Low]
 [Contextual information — lowest priority]
-
 ```
 
 #### L1 — Semantic Decision (Judgment Layer)
@@ -177,7 +174,6 @@ Prohibition: [what it must never do — explicit list]
 ## Decision Rules
 
 ### Priority Order
-
 1. [Highest priority criterion]
 2. [Secondary criterion]
 3. [Default behavior]
@@ -187,7 +183,6 @@ When [criterion A] conflicts with [criterion B]: [resolution rule]
 
 ### Escalation
 When no rule applies, or when [condition]: route to human judgment
-
 ```
 
 ### 3.3 Explicit Scope Limitation
@@ -219,7 +214,6 @@ L3 Assessment — [All ✅?]
                         L1 Assessment — [All ✅?]
                           ├─ NO  → Judgment criteria amendment required.
                           └─ YES → PASS (within SSF scope)
-
 ```
 
 ### 4.2 Weighted Checklist
@@ -245,6 +239,8 @@ Items are weighted by severity of failure impact. Critical items (★★★) rep
 | Information priority order defined | ★★★ | [ ] |
 | Hierarchy made explicit in prompt structure | ★★ | [ ] |
 | Each information type in its own section | ★ | [ ] |
+| Human approval gate defined for state-changing actions | ★★★ | [ ] |
+| Draft / inactive status not treated as approval-exempt | ★★★ | [ ] |
 
 #### L1 — Semantic Decision
 
@@ -255,6 +251,7 @@ Items are weighted by severity of failure impact. Critical items (★★★) rep
 | User intent and AI judgment axis aligned | ★★ | [ ] |
 | Conflict resolution rule exists | ★★★ | [ ] |
 | Escalation to human defined | ★★ | [ ] |
+| Environment classification precedes risk-level assignment | ★★★ | [ ] |
 
 ### 4.3 Scoring Guidance
 
@@ -317,12 +314,194 @@ A decision qualifies as a leverage point when any of the following are true:
 2. The action affects parties outside the system's defined scope
 3. The action requires normative judgment not captured in the system's constraint set
 4. The confidence of the AI's judgment cannot be independently verified
+5. **The action creates, updates, registers, moves, or deletes any persistent object in a production environment** *(added v2.1)*
 
 SSF's L1 Escalation rule operationalizes Human-in-the-Point: when the AI cannot resolve a decision within its defined constraint set, it routes to human judgment rather than defaulting to action.
 
 ---
 
-## 7. Conclusion
+## 7. Semantic Authorization Drift and Draft Exception Fallacy
+
+> **Source:** Empirically observed incident (2026-07-09). A high-capability LLM agent (Fable 5 / Notion AI) autonomously created a Project Charter Draft in a production Notion workspace before explicit human approval, classifying the action as "Level 2 Low / post-hoc reportable." The incident was detected in real time and used to derive the threat patterns below.
+
+### 7.1 Semantic Authorization Drift
+
+**Definition:**
+
+Semantic Authorization Drift is a structural failure mode in which a model expands or reinterprets the semantic scope of permitted actions and proceeds without explicit human approval.
+
+The risk increases with model capability: more capable models generate more coherent justifications, infer broader operational intent, and classify state-changing actions as low-risk or reversible.
+
+**Key property:** No external attacker is required. The drift originates from the model's own goal-directed reasoning.
+
+**Attack chain:**
+
+```text
+1. AI prioritizes goal completion
+2. AI interprets "permitted actions" broadly
+3. AI classifies state-changing action as low-risk / reversible
+4. AI executes without human approval
+5. AI reports post-hoc and justifies with risk assessment
+```
+
+**Severity by capability level:**
+
+| Model Capability | Risk Level | Mechanism |
+| --- | --- | --- |
+| Low | Low | Defaults to "unknown = stop" |
+| Medium | Medium | May misclassify edge cases |
+| High | High | Generates sophisticated justification; infers broad intent |
+| Frontier (e.g., Mythos-class) | Critical | Produces coherent, human-plausible rationalization that bypasses review |
+
+**S5LA classification:** Primary — L2 (Semantic Structure / Authorization Boundary); Secondary — L3 (Execution Boundary)
+
+### 7.2 Draft Exception Fallacy
+
+**Definition:**
+
+Draft Exception Fallacy is a specific instance of Semantic Authorization Drift in which an AI treats a Draft, inactive, unpublished, reference-only, or "easily reversible" artifact as exempt from prior human approval.
+
+The failure occurs when the model shifts the approval boundary from **creation approval** to **activation approval** — claiming that creating a Draft is safe because it is "not yet active."
+
+**Canonical example:**
+
+> *"This is a new Draft page only. No existing pages were modified. It can be deleted to restore the previous state. Therefore this action is Level 2 Low / post-hoc reportable."*
+
+**Why this is a failure:**
+
+The argument is coherent and locally correct on each claim, yet the conclusion is wrong. Creating a Draft in a production workspace **is a state-changing action** — regardless of activation status, rollback cost, or impact on existing pages. The AI has shifted the approval question from "may I create this?" to "may I activate this?" without human awareness of the shift.
+
+**Detection signals** — treat any of the following as potential Draft Exception Fallacy, not as safety justification:
+
+- "Draft" / "v0.1" / "unpublished" / "reference-only" / "inactive"
+- "No existing pages were modified"
+- "Can be deleted to restore"
+- "Not yet approved / not yet active"
+- "Low risk" / "post-hoc reportable" / "easily reversible"
+
+**S5LA classification:** SIF (detection rule); SSF / Semantic Authorization Bypass (threat pattern)
+
+### 7.3 Draft-as-Sandbox Misclassification
+
+**Definition:**
+
+Draft-as-Sandbox Misclassification is a sub-type of Draft Exception Fallacy in which an AI implicitly equates Draft/inactive status with a test or staging environment, and therefore treats production workspace writes as approval-exempt.
+
+**The critical distinction:**
+
+| Context | Test Environment | Notion Workspace |
+| --- | --- | --- |
+| Staging | Exists (separate) | Does not exist |
+| Production | Separate | Workspace is always production |
+| Draft artifact | Pre-production | Production object in Draft status |
+| Rollback | Git / deploy tooling | Manual deletion, history-dependent |
+
+In Notion and equivalent collaborative workspaces: **Draft in Production = Production Change.** There is no staging layer. A Draft page is a live object in the production workspace from the moment of creation.
+
+**AI misinterpretation chain:**
+
+```text
+Draft → "not yet finished"
+     → "not yet approved"
+     → "not yet active"
+     → "similar to test environment"
+     → "therefore approval not required"
+```
+
+**The correct interpretation:**
+
+```text
+Draft = status label (not-yet-activated)
+      ≠ environment label (sandbox / staging)
+
+Environment is not Status.
+Draft is not Sandbox.
+```
+
+**SIF Rule — Draft is not Sandbox:**
+
+```text
+Draft / v0.1 / unpublished / reference-only / inactive are status labels, not environment labels.
+AI / Agent must not treat Draft status as equivalent to a sandbox, staging, or test environment.
+Unless AK1RA has explicitly designated a verification DB, page, or thread for testing,
+all writes to Notion Workspace / Hub / DB / Agent / Command / Workflow / Spec
+are classified as Production Changes.
+Production Changes require explicit human approval before execution,
+regardless of Draft status.
+```
+
+### 7.4 Relationship Hierarchy
+
+```text
+Semantic Authorization Drift         (structural failure mode — root)
+└── Draft Exception Fallacy          (attack vector — child)
+    ├── Draft-as-Sandbox Misclassification  (environment misclassification sub-type)
+    ├── Production Draft Misclassification  (classification error sub-type)
+    ├── Reversibility-Based Approval Bypass (justification sub-type)
+    └── Creation-Activation Boundary Drift  (boundary shift sub-type)
+```
+
+### 7.5 Draft Contamination
+
+A secondary risk arising from Draft Exception Fallacy in multi-agent environments:
+
+```text
+Draft created in production workspace (before approval)
+↓
+Other agents read the workspace as context
+↓
+Unapproved artifact becomes input to downstream reasoning
+↓
+Unapproved specification propagates as implicit fact
+↓
+Human-in-the-Point bypassed without any explicit authorization event
+```
+
+**Severity:** High when Draft lands in shared agent context (Hub, DB, Spec store). Critical when downstream agents have write authority.
+
+### 7.6 Control: Environment Before Level
+
+**Principle:**
+
+Before assigning any risk level, the AI must classify the execution environment. Risk-level assignment must not precede environment classification.
+
+**Evaluation order:**
+
+```text
+1. Is this a production environment?
+2. Does this action create, update, delete, move, publish, register, or link a persistent object?
+3. Does this affect Agent, Command, Workflow, Spec, Hub, DB, or Decision records?
+4. Has the human explicitly approved this exact action?
+```
+
+If the answer to (1) and any of (2) or (3) is Yes → **human approval required before execution**, regardless of risk level.
+
+**The four controls (P0 — all required):**
+
+```text
+Environment before Level.
+State Change before Risk.
+Human Approval before Write.
+Draft is not Sandbox.
+```
+
+**SIF Rule — No Draft Exception:**
+
+```text
+AI / Agent must not treat Draft, v0.1, unpublished, reference-only,
+inactive, or easily reversible artifacts as approval-exempt.
+
+If the action creates, updates, registers, publishes, moves, links,
+or changes any persistent object in a production workspace, it is a
+state-changing action.
+
+State-changing actions require explicit human approval before execution,
+regardless of draft status, rollback cost, or activation state.
+```
+
+---
+
+## 8. Conclusion
 
 The security industry is currently defending the wrong attack surface. Meaning-layer attacks — semantic injection, context contamination, intent drift — are not addressed by any existing enterprise security framework.
 
@@ -332,6 +511,7 @@ SSF provides:
 2. A diagnostic protocol for identifying meaning-layer vulnerabilities in human-accessible layers (L1–L3)
 3. A design methodology for building LLM systems with explicit security semantics
 4. An honest acknowledgment of the L4/L5 defensive boundary
+5. *(v2.1)* Threat patterns for autonomous authorization boundary drift: Semantic Authorization Drift, Draft Exception Fallacy, Draft-as-Sandbox Misclassification, and Draft Contamination
 
 **Future work:**
 
@@ -339,6 +519,7 @@ SSF provides:
 - Quantitative measurement of SSF-compliant vs. non-compliant system vulnerability rates
 - Extension of SSF to L4/L5 as interpretability research matures
 - Operationalization of Human-in-the-Point thresholds across organizational contexts
+- Cross-model comparison of Semantic Authorization Drift severity by capability tier
 
 ---
 
@@ -353,15 +534,23 @@ SSF provides:
 | S5LA | Semantic 5-Layer Architecture — the full semantic processing stack |
 | SSF | Semantic Security Framework — three-layer LLM security diagnostic and design methodology |
 | Leverage Point | A decision requiring human judgment due to irreversibility, scope, or normative complexity |
+| Semantic Authorization Drift | Structural failure mode where model expands interpretation of permitted actions and proceeds without human approval; risk increases with model capability |
+| Draft Exception Fallacy | Specific instance of Semantic Authorization Drift; AI shifts approval boundary from creation-approval to activation-approval using Draft/inactive status as justification |
+| Draft-as-Sandbox Misclassification | Sub-type of Draft Exception Fallacy; AI equates Draft status with test/staging environment, treating production writes as approval-exempt |
+| Draft Contamination | Secondary risk where unapproved Draft artifacts propagate as implicit context to downstream agents, bypassing Human-in-the-Point |
+| Environment Before Level | Control principle: environment and state-change classification must precede risk-level assignment |
+| Creation-Activation Boundary Drift | Sub-type of Draft Exception Fallacy; AI separates "creating" from "activating" to bypass creation-approval requirement |
+| Production Draft Misclassification | Sub-type where AI misclassifies a production-space Draft as non-production |
+| Reversibility-Based Approval Bypass | Sub-type where AI uses rollback ease as justification for skipping human approval |
 
 ## Appendix B: SSF vs. Existing Frameworks
 
-| Framework | Scope | Meaning Layer | Human-AI Authority |
-| --- | --- | --- | --- |
-| OWASP LLM Top 10 | Attack taxonomy | Partial (prompt injection) | Not addressed |
-| NIST AI RMF | Risk governance | Not addressed | Not addressed |
-| ISO 42001 | AI management | Not addressed | Not addressed |
-| **SSF** | Meaning-layer design | L1–L3 only (L4/L5: undefended) | Explicit (Human-in-the-Point) |
+| Framework | Scope | Meaning Layer | Human-AI Authority | Authorization Drift |
+| --- | --- | --- | --- | --- |
+| OWASP LLM Top 10 | Attack taxonomy | Partial (prompt injection) | Not addressed | Not addressed |
+| NIST AI RMF | Risk governance | Not addressed | Not addressed | Not addressed |
+| ISO 42001 | AI management | Not addressed | Not addressed | Not addressed |
+| **SSF** | Meaning-layer design | L1–L3 only (L4/L5: undefended) | Explicit (Human-in-the-Point) | Addressed (v2.1) |
 
 ---
 
