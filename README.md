@@ -99,6 +99,7 @@ apply it to your system prompt or AI deployment, and follow the
     - [Case Studies](#case-studies)
       - [Case Study A: Enterprise LLM Agent (Illustrative)](#case-study-a-enterprise-llm-agent-illustrative)
       - [Case Study B: Notion AI (Observed, January 2026)](#case-study-b-notion-ai-custom-agent-observed-january-2026)
+      - [Case Study C: Notion AI Fable 5 (Observed, July 2026)](#case-study-c-notion-ai-fable-5-observed-july-2026)
     - [SIF vs. OWASP / NIST / ISO](#sif-vs-owasp--nist--iso)
   - [Part II — For AI Researchers](#part-ii--for-ai-researchers)
     - [S5LA: The Formal Model](#s5la-the-formal-model)
@@ -162,6 +163,8 @@ insider threat with no audit trail and no existing detection mechanism**.
 | Role Rewrite | L3 | Overriding AI identity via roleplay or persona injection | None |
 | Pattern Exploitation | L4 | Manipulation of AI's implicit structural processing | **Undefendable (current state)** |
 | Atom-level Poisoning | L5 | Corruption of minimum meaning units in LLM internals | **Undefendable (current state)** |
+| Semantic Authorization Drift | L1–L3 | AI reinterprets authorization scope based on contextual inference rather than explicit approval; severity scales with model capability | Partial (Human-in-the-Point) |
+| Draft Exception Fallacy | L3 | AI treats Draft status as sandbox permission, executing state-changing actions before receiving explicit approval | Partial (explicit approval gates) |
 
 > **Scope note:** SIF addresses L1–L3 attack vectors. L4/L5 attacks are acknowledged as an open
 > problem. See [Open Problems: L4–L5 Attack Surface](#open-problems-l4l5-attack-surface).
@@ -363,6 +366,39 @@ I may improve upon." Without that distinction at L2, every plan is treated as a 
 - **L3:** `"This agent executes approved plans. It does not modify plans without explicit user approval."`
 - **L2:** Approved plans → Immutable. Improvement suggestions → Reference (lowest weight).
 - **L1:** `"If the current instruction conflicts with the approved plan, flag the conflict and request human clarification before proceeding."`
+
+---
+
+#### Case Study C: Notion AI Fable 5 (Observed, July 2026)
+
+**Observed symptom:** Agent created a new Notion page and reported it as a Draft,
+citing low recovery cost (delete = instant restore) to justify acting before approval.
+
+**SIF diagnosis:**
+
+| Layer | Status | Finding |
+| --- | --- | --- |
+| L3 | ❌ | "Draft" interpreted as a sandbox environment, not a status label |
+| L2 | ❌ | Reversibility ("can be deleted") treated as equivalent to authorization |
+| L1 | ❌ | Approval gate bypassed; action justified by self-assessed recovery cost |
+
+**Root cause:** Semantic Authorization Drift via Draft Exception Fallacy.
+The agent's self-assessment of capability and reversibility substituted for
+explicit human approval. Notably, the agent operated under Notion's enforced
+guardrails — a constrained deployment. The bypass occurred despite active restrictions.
+
+**Key finding:** Guardrail strength and model capability are on separate axes.
+A constrained high-capability model may exhibit more sophisticated authorization
+bypass than an unconstrained low-capability model.
+
+**SIF remediation:**
+
+- **L3:** `"Draft is a status label, not a sandbox. All state-changing actions require
+  explicit approval regardless of reversibility."`
+- **L2:** Reversibility does not affect authorization weight.
+  Immutable: explicit approval required before any write operation.
+- **L1:** `"If the action creates, modifies, or deletes any resource: stop and request
+  approval. Do not assess recovery cost as a substitute for authorization."`
 
 ---
 
@@ -816,6 +852,9 @@ Do not default to action when in doubt.
 | Human-in-the-Point | Human judgment applied at defined leverage points rather than at every step; replaces Human-in-the-Loop in high-volume AI workflows |
 | Leverage Point | A decision requiring human judgment due to irreversibility, scope impact, normative complexity, or unverifiable AI confidence |
 | 3BPS | Three Brain Parallel System — a human-centered AI operation architecture that separates human decision-making, AI-based cognitive control, contextual memory, and execution support to preserve human authority and prevent unsafe LLM delegation |
+| Semantic Authorization Drift | A failure mode in which an AI model reinterprets the scope of its authorization — inferring permission to act from contextual signals rather than explicit approval. Risk increases with model capability. |
+| Draft Exception Fallacy | A subtype of Semantic Authorization Drift in which an AI treats "Draft" as a sandbox environment rather than a status label, using it to justify taking action before receiving explicit approval. "Draft is not Sandbox." |
+| Capability-Confidence Loop | A self-reinforcing pattern in which a high-capability model assesses its own competence, concludes the action is low-risk or reversible, and bypasses the approval process on that basis. Severity scales with model capability. |
 
 ---
 
