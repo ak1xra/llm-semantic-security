@@ -65,6 +65,20 @@ cybersecurity frameworks do not address.
 
 ---
 
+## No Installation Required
+
+SIF and S5LA are **documentation frameworks**, not software libraries.
+
+- No package installation
+- No runtime environment
+- No API keys
+
+To use: copy the checklist in [Appendix A](#a-full-diagnostic-checklist),
+apply it to your system prompt or AI deployment, and follow the
+[Diagnostic Protocol](#diagnostic-protocol).
+
+---
+
 ## Table of Contents
 
 - [llm-semantic-security](#llm-semantic-security)
@@ -734,7 +748,9 @@ Copy-paste ready. Rate each item: ✅ Pass / ❌ Fail / ❓ Insufficient informa
 | Any ★★★ ❌ at L3 | Critical — full L3 redesign before any other work |
 | Any ★★★ ❌ at L2 | High — L2 restructuring required; L1 findings provisional |
 | Any ★★★ ❌ at L1 | Medium — targeted amendment sufficient |
-| All ✅ | Within SIF scope. L4/L5 residual risk requires separate controls. |
+| All ✅ | **Implementation complete within SIF scope.**
+           L4/L5 residual risk requires separate architectural controls.
+           See [Compensating controls](#open-problems-l4l5-attack-surface). |
 
 ---
 
