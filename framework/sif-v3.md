@@ -88,7 +88,12 @@ SIF is built upon S5LA, which models the semantic processing stack between human
 
 **L4–L5 represent a known open problem.** These layers are the attack surface for the most sophisticated semantic attacks. Current LLM architectures do not expose these layers to external inspection or control. SIF acknowledges this boundary explicitly rather than claiming protection it cannot provide.
 
-Future research directions for L4–L5 defense include: interpretability tooling, activation steering, mechanistic analysis of transformer attention patterns, and LLM-specific anomaly detection.
+| Layer | Status | Candidate research (not claimed defense) |
+| --- | --- | --- |
+| L4 Pattern | Indirect access only | **APD / Semantic Graph Defense** — external Semantic Graph as a proxy for estimating L4 structural patterns at the L3→L4 boundary |
+| L5 Atom | No current defensive access | **APD Semantic Component as L5 proxy** — observable input components for studying correspondence with internal representations (**APD Semantic Component ≠ S5LA Semantic Atom**) |
+
+Future research directions for L4–L5 defense include: interpretability tooling, activation steering, mechanistic analysis of transformer attention patterns, LLM-specific anomaly detection, and Adversarial Prompt Disentanglement (APD) / Semantic Graph Defense as a candidate path for indirect observation — not as a completed L4/L5 defense.
 
 ### 2.3 Three Contexts of Semantic Corruption
 
@@ -394,6 +399,12 @@ SIF provides:
 - Quantitative measurement of SIF-compliant vs. non-compliant system vulnerability rates
 - Extension of SIF to L4/L5 as interpretability research matures
 - Operationalization of Human-in-the-Point thresholds across organizational contexts
+- APD / Semantic Graph Defense connection hypotheses (research agenda, not claimed capabilities):
+  - **H1** — Semantic Graph ↔ L4 Pattern correspondence is measurable (graph vs. attention/activation/behavior)
+  - **H2** — External Semantic Components map reproducibly to L5-related internal representations (proxy only; not identity)
+  - **H3** — Some adversarial prompts act as Semantic Routing attacks at the L3→L4 boundary, not only instruction injection
+  - **H4** — L4/L5 Semantic Integrity boundaries may not transfer cross-lingually (e.g., Japanese high-context prompts)
+  - **H5** — Deployed Semantic Graph Defense shifts attack surface to graph construction / intent-classifier manipulation
 
 ---
 

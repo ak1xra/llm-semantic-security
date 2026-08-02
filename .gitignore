@@ -10,3 +10,6 @@ Thumbs.db
 # Temp
 *.tmp
 *.bak
+
+# SpecStory session logs (local auto-save; not source of truth)
+.specstory/

@@ -561,11 +561,15 @@ controllability research. Claiming protection at these layers would be misleadin
 AI's structural templates are implicit and not externally observable. An adversary who
 understands how a specific model processes structural patterns can craft inputs that route
 through the model's pattern-processing in unintended ways, without violating any explicit rule.
+Candidate research: **APD / Semantic Graph Defense** as an external proxy for estimating L4
+patterns at the L3→L4 boundary (not claimed defense).
 
 **L5 — Atom-level Poisoning:**
 The minimum meaning units processed inside LLMs are not accessible through current API surfaces.
 Fine-tuning, RLHF poisoning, and prompt-level injection that targets atomic representations
 operate entirely outside current defensive access.
+Candidate research: APD Semantic Components as an L5 proxy for correspondence studies
+(**APD Semantic Component ≠ S5LA Semantic Atom**).
 
 **Compensating controls (architectural-level):**
 
@@ -583,13 +587,22 @@ Contributions are welcomed in the following areas:
 - **Empirical validation:** Quantitative measurement of SIF-compliant vs. non-compliant
   system vulnerability rates across diverse LLM deployments
 - **L4 interpretability:** Mechanistic analysis of transformer attention patterns as a
-  basis for structural template introspection
+  basis for structural template introspection; APD / Semantic Graph Defense as a candidate
+  external observation path (see `framework/sif-v3.md` H1–H5)
 - **L5 access:** Activation steering and representation engineering as paths toward
-  atom-level defensive access
+  atom-level defensive access; APD Semantic Component as proxy (not identity) for L5 mapping studies
 - **Human-in-the-Point operationalization:** Threshold calibration across organizational
   contexts, roles, and risk tolerances
 - **SIF extension:** Application to multi-agent pipelines, where semantic corruption
   can propagate across agent boundaries
+- **APD connection hypotheses (H1–H5):** Graph↔L4 correspondence; Component↔L5 mapping;
+  Semantic Routing attacks; cross-lingual integrity; graph-constructor adversarial robustness
+  (research agenda only — see SIF v3 Future work)
+- **APD Semantic Graph Defense integration:** Adversarial Prompt Disentanglement
+  (Fang & Fang, AAAI 2026) as L3→L4 boundary inspection research — prototype
+  Semantic Boundary Inspector (SBI) to evaluate whether external Semantic Graph
+  construction can serve as an indirect proxy for L4 Semantic Pattern observation.
+  See: https://doi.org/10.1609/aaai.v40i5.37389
 
 ---
 
