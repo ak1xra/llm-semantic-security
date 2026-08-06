@@ -1,4 +1,4 @@
-# llm-semantic-security
+# LLM Semantic Security
 
 ![Version](https://img.shields.io/badge/version-3.0-blue)
 ![Status](https://img.shields.io/badge/status-working%20paper-orange)
@@ -81,8 +81,9 @@ apply it to your system prompt or AI deployment, and follow the
 
 ## Table of Contents
 
-- [llm-semantic-security](#llm-semantic-security)
+- [LLM Semantic Security](#llm-semantic-security)
   - [Why This Exists](#why-this-exists)
+  - [No Installation Required](#no-installation-required)
   - [Table of Contents](#table-of-contents)
   - [Part I — For Security Professionals](#part-i--for-security-professionals)
     - [The Gap: What Existing Frameworks Miss](#the-gap-what-existing-frameworks-miss)
@@ -98,7 +99,7 @@ apply it to your system prompt or AI deployment, and follow the
       - [Step 3: Define L1 — Decision Rules](#step-3-define-l1--decision-rules)
     - [Case Studies](#case-studies)
       - [Case Study A: Enterprise LLM Agent (Illustrative)](#case-study-a-enterprise-llm-agent-illustrative)
-      - [Case Study B: Notion AI (Observed, January 2026)](#case-study-b-notion-ai-custom-agent-observed-january-2026)
+      - [Case Study B: Notion AI (Observed, January 2026)](#case-study-b-notion-ai-observed-january-2026)
       - [Case Study C: Notion AI Fable 5 (Observed, July 2026)](#case-study-c-notion-ai-fable-5-observed-july-2026)
     - [SIF vs. OWASP / NIST / ISO](#sif-vs-owasp--nist--iso)
   - [Part II — For AI Researchers](#part-ii--for-ai-researchers)
