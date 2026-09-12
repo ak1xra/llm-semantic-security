@@ -1,0 +1,28 @@
+{
+  "name": "llm-semantic-security",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "remoteUser": "vscode",
+  "runArgs": [
+    "--security-opt=no-new-privileges",
+    "--cap-drop=ALL",
+    "--cap-add=CHOWN",
+    "--cap-add=SETUID",
+    "--cap-add=SETGID",
+    "--cap-add=DAC_OVERRIDE",
+    "--cap-add=FOWNER"
+  ],
+  "mounts": [],
+  "containerEnv": {},
+  "forwardPorts": [],
+  "customizations": {
+    "vscode": {
+      "extensions": [],
+      "settings": {}
+    }
+  },
+  "postCreateCommand": "git status"
+}
